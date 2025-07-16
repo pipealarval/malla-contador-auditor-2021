@@ -1,39 +1,42 @@
 body {
   font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  margin: 0;
-  padding: 20px;
+  margin: 20px;
+  background-color: #f4f4f4;
 }
 h1 {
   text-align: center;
 }
 .malla {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
+  flex-direction: column;
+  gap: 20px;
 }
 .anio {
-  background: white;
+  background-color: #ffffff;
+  padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  padding: 12px;
-  width: 250px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
-.semestre {
-  margin-bottom: 16px;
+.ramos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 .ramo {
-  padding: 8px;
-  border-radius: 4px;
-  margin-bottom: 6px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: #ccc;
   cursor: pointer;
-  background-color: #e0e0e0;
+  user-select: none;
 }
 .ramo.habilitado {
-  background-color: #cce5ff;
+  background-color: #add8e6;
 }
 .ramo.aprobado {
-  background-color: #8fd19e;
+  background-color: #90ee90;
   text-decoration: line-through;
+}
+.ramo.bloqueado {
+  background-color: #ddd;
+  cursor: not-allowed;
 }
