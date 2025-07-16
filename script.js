@@ -1,27 +1,36 @@
 document.querySelectorAll('.ramo').forEach(ramo => {
-  const requisitos = ramo.getAttribute('data-requisitos')
-    .split(',').map(r => r.trim()).filter(Boolean);
-
-  function actualizarEstado() {
-    if (ramo.classList.contains('aprobado')) return;
-
-    const aprobados = Array.from(document.querySelectorAll('.ramo.aprobado'))
-      .map(r => r.textContent.trim());
-
-    if (requisitos.every(r => aprobados.includes(r))) {
-      ramo.classList.add('habilitado');
-      ramo.classList.remove('bloqueado');
-    } else {
-      ramo.classList.add('bloqueado');
-      ramo.classList.remove('habilitado');
-    }
+  const requisitos = ramo.dataset.requisitos.split(',').map(r => r.trim()).filter(Boolean);
+  if (requisitos.length > 0) {
+    ramo.classList.add('bloqueado');
+  } else {
+    ramo.classList.add('habilitado');
   }
 
   ramo.addEventListener('click', () => {
     if (ramo.classList.contains('bloqueado')) return;
-    ramo.classList.toggle('aprobado');
-    document.querySelectorAll('.ramo').forEach(actualizarEstado);
+    if (ramo.classList.contains('aprobado')) {
+      ramo.classList.remove('aprobado');
+    } else {
+      ramo.classList.add('aprobado');
+    }
+    actualizarRamos();
   });
-
-  actualizarEstado();
 });
+
+function actualizarRamos() {
+  document.querySelectorAll('.ramo').forEach(ramo => {
+    const requisitos = ramo.dataset.requisitos.split(',').map(r => r.trim()).filter(Boolean);
+    if (requisitos.length > 0) {
+      const aprobados = requisitos.every(nombre =>
+        [...document.querySelectorAll('.ramo.aprobado')].some(r => r.textContent === nombre)
+      );
+      if (aprobados) {
+        ramo.classList.remove('bloqueado');
+        ramo.classList.add('habilitado');
+      } else {
+        ramo.classList.remove('habilitado');
+        ramo.classList.add('bloqueado');
+      }
+    }
+  });
+}
